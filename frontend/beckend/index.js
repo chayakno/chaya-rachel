@@ -9,6 +9,7 @@ const CHAT_BOT = 'ChatBot';
 let chatRoom = ''; // E.g. javascript, node,...
 let allUsers = []; // All users in current chat room
 const messageservice = require('./src/services/message/message.service');
+// const messageservice=require('./')
 
 
 const app = express();
