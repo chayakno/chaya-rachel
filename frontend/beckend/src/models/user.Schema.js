@@ -17,9 +17,6 @@ const UsersSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UsersSchema);
 
-module.exports = {
-    User,
-};
 
 
 const validUserSchema = Joi.object({
@@ -37,9 +34,7 @@ const validUserSchema = Joi.object({
 });
 
 
-module.exports = {
-    validUserSchema,
-};
+
 
 module.exports = {
     User,
