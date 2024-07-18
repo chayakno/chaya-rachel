@@ -24,30 +24,31 @@ function App() {
     <Provider store={store}>
    <p>hi rachel</p>
    <StudentsComponent/>
-  </Provider>
-    // <Router>
-    //   <div className='App'>
-    //     <Routes>
-    //       <Route
-    //         path='/'
-    //         element={
-    //           <Home
-    //           sender={sender}
-    //             setUsername={setUsername}
-    //             room={room}
-    //             setRoom={setRoom}
-    //             socket={socket}
-    //           />
-    //         }
-    //       />
-    //       {/* Add this */}
-    //       <Route
-    //         path='/chat'
-    //         element={<Chat sender={sender} room={room} socket={socket} />}
-    //       />
-    //     </Routes>
-    //   </div>
-    // </Router>
+
+    <Router>
+      <div className='App'>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Home
+              sender={sender}
+                setUsername={setUsername}
+                room={room}
+                setRoom={setRoom}
+                socket={socket}
+              />
+            }
+          />
+          {/* Add this */}
+          <Route
+            path='/chat'
+            element={<Chat sender={sender} room={room} socket={socket} />}
+          />
+        </Routes>
+      </div>
+    </Router>
+    </Provider>
   );
 }
 
