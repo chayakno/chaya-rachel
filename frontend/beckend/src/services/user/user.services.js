@@ -39,6 +39,7 @@ async function addUser(studentData) {
 
         const { error } = validUserSchema.validate(newUser);
         if (error) {
+            console.log("errrrrrrrrrrrrrrrrrrorrr!!!");
             throw new Error(error.details[0].message);
         }
 

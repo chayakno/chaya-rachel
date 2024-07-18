@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const Student = require('./student.Schema');  
 const subjectsEnum = ['piano', 'flute', 'guitar', 'organic'];
-const studentValidationSchema = Joi.object({
+const validate = Joi.object({
     name: Joi.string().pattern(/^[a-zA-Z]+$/).min(2).required()
         .messages({
             'string.pattern.base': 'Name must contain only letters',
@@ -40,15 +40,15 @@ const studentValidationSchema = Joi.object({
             'any.only': 'Status must be one of "pending", "accepted", "rejected"',
             'any.required': 'Status is required'
         }),
-    user: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required()
-        .messages({
-            'string.pattern.base': 'User ID must be a valid ObjectId',
-            'any.required': 'User ID is required'
-        }),
+    // user: Joi.string().pattern(/^[0-9a-fA-F]{24}$/).required()
+    //     .messages({
+    //         'string.pattern.base': 'User ID must be a valid ObjectId',
+    //         'any.required': 'User ID is required'
+    //     }),
     chats: Joi.array().items(Joi.string().pattern(/^[0-9a-fA-F]{24}$/)).optional()
         .messages({
             'array.base': 'Chats must be an array'
         })
 });
 
-module.exports = studentValidationSchema;
+module.exports = validate;
