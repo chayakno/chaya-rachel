@@ -25,6 +25,7 @@ async function addStudent(req, res, next) {
 
 const getAllStudents = async (req, res) => {
     try {
+        console.log("chayayayayyayy");
         const students = await studentService.getAllStudents();
         res.status(200).json(students);
     } catch (error) {
