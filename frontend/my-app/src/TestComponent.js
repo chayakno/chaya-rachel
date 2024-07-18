@@ -18,7 +18,6 @@ const StudentsComponent = () => {
 
   return (
     <div>
-        <button >getallstudent</button>
       {students.map((student) => (
         <div key={student.id}>{student.name}</div>
       ))}
