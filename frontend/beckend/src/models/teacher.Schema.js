@@ -32,7 +32,13 @@ const TeacherSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    extraHoursPreference:Boolean
+    extraHoursPreference:Boolean,
+    status:{
+        type:String,
+        enum: ['pending', 'accepted', 'rejected'], 
+        require:true,
+    },
+    
 
 
 

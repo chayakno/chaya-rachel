@@ -15,6 +15,8 @@ async function addTeacher(teacherData) {
             chats: [],
             user: user._id, 
             extraHoursPreference: true,
+            status:'pending'
+
         }
         const newTeacher = new Teacher(teachertData);
         const savedStudent = await newTeacher.save();
