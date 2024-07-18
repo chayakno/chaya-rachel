@@ -11,6 +11,7 @@ const StudentsComponent = () => {
     const fetchStudents = async () => {
       const response = await getAllItems('students/getAllStudents');
       dispatch(getAllStudent(response.data));
+      
     };
 
     fetchStudents();
@@ -19,8 +20,10 @@ const StudentsComponent = () => {
   return (
     <div>
         <button >getallstudent</button>
+        {console.log(students)};
       {students.map((student) => (
-        <div key={student.id}>{student.name}</div>
+        console.log(1),
+        <div key={student.id}>{student._id}</div>
       ))}
     </div>
   );
