@@ -84,7 +84,7 @@ async function addMessage(data) {
 
         let messageData = {
             //לשנות ל user._id
-            sender: user._id,
+            sender: "60c72b2f4f1a4c0f1c8a9b7a",
             content: data.content,
             timestamp: data.timestamp
         }
