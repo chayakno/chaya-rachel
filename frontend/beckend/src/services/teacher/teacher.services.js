@@ -19,13 +19,22 @@ async function addTeacher(teacherData) {
 
         }
         const newTeacher = new Teacher(teachertData);
-        const savedStudent = await newTeacher.save();
-        return savedStudent;
+        const savedTeacher = await newTeacher.save();
+        return savedTeacher;
     } catch (err) {
         throw err;
     }
 };
 
+const getAllPendingSTeachers = async () => {
+    try {
+        const PendingSTeachers = await Teacher({ status: 'pending' });
+        return PendingSTeachers;
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports = {
-   addTeacher
+   addTeacher,getAllPendingSTeachers
 };
