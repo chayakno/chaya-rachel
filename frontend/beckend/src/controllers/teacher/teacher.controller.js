@@ -14,7 +14,20 @@ async function addTeacher(req, res, next) {
       next(err);
     }
   }
+  async function acceptTeacher(req, res, next) {
+    const { id } = req.params;
+  
+    try {
+
+      const updataTeacher = await teacherService.acceptTeacher(id);
+      
+      
+      res.status(201).json(updataTeacher);
+    } catch (err) {
+      next(err);
+    }
+  }
 
   module.exports = {
-    addTeacher,
+    addTeacher,acceptTeacher
 };
