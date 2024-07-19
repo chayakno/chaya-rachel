@@ -1,4 +1,5 @@
 # chaya-rachel
+http://localhost:5000/students/add
 {
     "subjects": [
         "piano"
