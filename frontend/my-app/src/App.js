@@ -5,7 +5,7 @@ import Chat from './pages/chat';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import io from 'socket.io-client';
 import { useSelector, useDispatch } from 'react-redux';
-import StudentsComponent from './TestComponent'
+// import StudentsComponent from './TestComponent'
 import store from '../src/app/store'
 import { Provider } from 'react-redux';
 import TabContext from './Components/nevigateAdmin'
@@ -22,8 +22,7 @@ function App() {
 
   return (
     <Provider store={store}>
-   <p>hi rachel</p>
-   <StudentsComponent/>
+   <TabContext/>
   </Provider>
     // <Router>
     //   <div className='App'>

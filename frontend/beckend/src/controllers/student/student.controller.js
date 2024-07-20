@@ -1,6 +1,7 @@
 
 
 const studentService = require('../../services/student/student.service');
+const { studentValidationSchema } = require('../../models/studentValidation'); // Import the schema
 const userService = require('../../services/user/user.services');
 const { func } = require('joi');
 const validate = require('../../models/studentValidation');
@@ -9,27 +10,21 @@ async function addStudent(req, res, next) {
     const studentData = req.body;
   
     try {
-    //    const { error, value } = validate.validate(studentData, { abortEarly: false });
-    //   if (error) {
-    //     console.log("error from ...");
-    //     const errors = error.details.map(error => error.message);
-    //     return res.status(400).json({ errors }); 
-    //   }
-      const newuser = await userService.addUser(req.body);
+      // const validationResult = studentValidationSchema.validate(studentData, { abortEarly: false });
+      // if (validationResult.error) {
+      //   const errors = validationResult.error.details.map(error => error.message);
+      //   return res.status(400).json({ errors }); 
+      // }
       const newStudent = await studentService.addStudent(studentData);
-      
+      const newuser = await userService.addUser(req.body);
       res.status(201).json(newStudent);
     } catch (err) {
       next(err);
     }
   }
 
-
-
-
 const getAllStudents = async (req, res) => {
     try {
-        console.log("chayayayayyayy");
         const students = await studentService.getAllStudents();
         res.status(200).json(students);
     } catch (error) {

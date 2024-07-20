@@ -3,10 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import StudentsComponent from '../TestComponent'
-import  AddWorkerComponent  from "./AddWorkerComponent";
-import addUser from "./addStudent";
-
+// import StudentsComponent from '../TestComponent'
+import  UpdateStatusStudent  from "./addStudents";
+import addteacher from "./addteacher"
 
 
 const MyComponent = () => {
@@ -28,8 +27,8 @@ const MyComponent = () => {
           </TabList>
         </Box>
         <Routes>
-          <Route path="/students" element={<TabPanel value="1"><addUser /></TabPanel>} />
-          <Route path="/add-worker" element={<TabPanel value="2"><AddWorkerComponent /></TabPanel>} />
+          <Route path="/students" element={<TabPanel value="1"><UpdateStatusStudent /></TabPanel>} />
+          <Route path="/add-worker" element={<TabPanel value="2"><addteacher/></TabPanel>} />
           <Route path="/item-three" element={<TabPanel value="3"></TabPanel>} />
         </Routes>
       </TabContext>

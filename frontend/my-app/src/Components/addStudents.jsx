@@ -52,9 +52,9 @@ import Box from '@mui/material/Box';
     >
        {students.map((student) => (
 
-<div key={student._id}> 
+         <div key={student._id}> 
  
-  <p>Age: {student.age}</p>
+  <p>Age: {student.user.name}</p>
   <p>subject:{student.subjects}</p>
   <Button variant="contained" onClick={() => Submit(student)}>Submit</Button>
 
