@@ -27,7 +27,15 @@ async function addTeacher(req, res, next) {
       next(err);
     }
   }
+  const getAllPendingSTeachers = async (req, res) => {
+    try {
+        const teachers = await teacherService.getAllPendingSTeachers();
+        res.status(200).json(teachers);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
   module.exports = {
-    addTeacher,acceptTeacher
+    addTeacher,acceptTeacher,getAllPendingSTeachers
 };
