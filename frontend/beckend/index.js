@@ -9,6 +9,7 @@ const CHAT_BOT = 'ChatBot';
 let chatRoom = ''; // E.g. javascript, node,...
 let allUsers = []; // All users in current chat room
 const messageservice = require('./src/services/message/message.service');
+
 // const messageservice=require('./')
 
 
@@ -101,13 +102,16 @@ io.on('connection', (socket) => {
 // Routes
 const studRouter = require("./src/routes/student.rout");
 const userRouter = require("./src/routes/user.rout");
-const messageRouter = require("./src/routes/message.rout")
+const messageRouter = require("./src/routes/message.rout");
+const teacherRouter=require("./src/routes/teacher.route")
 
 app.use("/students", studRouter);
 app.use("/message", messageRouter)
+app.use("/teacher",teacherRouter)
 // app.use("/users", userRouter); // Uncomment if you have user routes defined
 
-// Example endpoints
+
+
 const Student = require('./src/models/student.Schema');
 const User = require('./src/models/user.Schema');
 const { log } = require("console");

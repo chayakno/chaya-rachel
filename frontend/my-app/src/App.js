@@ -23,8 +23,7 @@ function App() {
   return (
     <Provider store={store}>
    <p>hi rachel</p>
-   {/* <StudentsComponent/> */}
-  < TabContext/>
+   <StudentsComponent/>
   </Provider>
     // <Router>
     //   <div className='App'>

@@ -32,11 +32,21 @@ const TeacherSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    extraHoursPreference:Boolean
+    extraHoursPreference:Boolean,
+    status:{
+        type:String,
+        enum: ['pending', 'accepted', 'rejected'], 
+        require:true,
+    },
+    
 
 
 
 })
-module.exports=mongoose.model('Teacher',TeacherSchema)
 
 
+
+const Teacher = mongoose.model('Teacher', TeacherSchema);
+module.exports = {
+  Teacher
+};
