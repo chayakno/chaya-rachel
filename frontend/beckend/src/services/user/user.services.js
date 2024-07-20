@@ -31,6 +31,7 @@ async function addUser(studentData) {
         }
 
         let newUser = {
+            //userId=passsword
             "userId": studentData.userId,
             "name": studentData.name,
             "email": studentData.email,

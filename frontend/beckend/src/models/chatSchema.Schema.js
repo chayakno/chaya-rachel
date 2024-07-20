@@ -20,9 +20,7 @@ const ChatSchema = new mongoose.Schema({
 
         }
     ],
-
-
-
+    
 
 });
 

@@ -24,6 +24,19 @@ async function addStudent(req, res, next) {
     }
   }
 
+  const acceptStudent=async(req, res, next) =>{
+    const {id} = req.params;
+  
+    try {
+    
+      const updatetudent = await studentService.acceptStudent(id);
+      
+      
+      res.status(201).json(updatetudent);
+    } catch (err) {
+      next(err);
+    }
+  }
 
 
 
@@ -48,5 +61,5 @@ const getAllPendingStudents = async (req, res) => {
 
 
 module.exports = {
-    addStudent,getAllStudents,getAllPendingStudents
+    addStudent,getAllStudents,getAllPendingStudents,acceptStudent
 };
