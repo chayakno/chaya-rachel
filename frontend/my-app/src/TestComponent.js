@@ -23,7 +23,7 @@ const StudentsComponent = () => {
         {console.log(students)};
       {students.map((student) => (
         console.log(1),
-        <div key={student.id}>{student._id}</div>
+        <div key={student.id}>{student.user.name}</div>
       ))}
     </div>
   );
