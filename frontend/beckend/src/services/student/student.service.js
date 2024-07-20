@@ -5,7 +5,7 @@ const { User } = require('../../models/user.Schema');
 
 const getAllStudents = async () => {
     try {
-        return await Student.find();
+        return await Student.find().populate('user');
     } catch (error) {
         throw error;
     }
@@ -13,7 +13,7 @@ const getAllStudents = async () => {
 
 const getAllPendingStudents = async () => {
     try {
-        const pendingStudents = await Student.find({ status: 'pending' });
+        const pendingStudents = await Student.find({ status: 'pending' }).populate('user');
         return pendingStudents;
     } catch (error) {
         throw error;

@@ -18,7 +18,7 @@ async function addStudent(req, res, next) {
       const newuser = await userService.addUser(req.body);
       const newStudent = await studentService.addStudent(studentData);
       
-      res.status(201).json(newStudent);
+      res.status(201).json({newStudent,newuser});
     } catch (err) {
       next(err);
     }
@@ -42,7 +42,7 @@ async function addStudent(req, res, next) {
 
 const getAllStudents = async (req, res) => {
     try {
-        console.log("chayayayayyayy");
+       
         const students = await studentService.getAllStudents();
         res.status(200).json(students);
     } catch (error) {
