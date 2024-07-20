@@ -21,8 +21,8 @@ async function addTeacher(teacherData) {
 
         }
         const newTeacher = new Teacher(teachertData);
-        const savedStudent = await newTeacher.save();
-        return savedStudent;
+        const savedTeacher = await newTeacher.save();
+        return savedTeacher;
     } catch (err) {
         throw err;
     }
@@ -47,7 +47,7 @@ async function acceptTeacher(id) {
 
         const newChat = await chatRoom.save();
 
-        teacher.chats.push(newChat._id); // הוספת הצ'אט למערך הצ'אטים
+        teacher.chats.push(newChat._id); 
         teacher.status = 'accepted';
 
        
@@ -57,8 +57,16 @@ async function acceptTeacher(id) {
         throw err;
     }
 };
+const getAllPendingSTeachers = async () => {
+    try {
+        const PendingSTeachers = await Teacher({ status: 'pending' });
+        return PendingSTeachers;
+    } catch (error) {
+        throw error;
+    }
+};
 
 
 module.exports = {
-    addTeacher,acceptTeacher
+    addTeacher,acceptTeacher,getAllPendingSTeachers
 };
