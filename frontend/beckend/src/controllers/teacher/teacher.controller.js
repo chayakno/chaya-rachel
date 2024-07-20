@@ -14,7 +14,19 @@ async function addTeacher(req, res, next) {
       next(err);
     }
   }
+  async function acceptTeacher(req, res, next) {
+    const { id } = req.params;
+  
+    try {
 
+      const updataTeacher = await teacherService.acceptTeacher(id);
+      
+      
+      res.status(201).json(updataTeacher);
+    } catch (err) {
+      next(err);
+    }
+  }
   const getAllPendingSTeachers = async (req, res) => {
     try {
         const teachers = await teacherService.getAllPendingSTeachers();
@@ -23,6 +35,7 @@ async function addTeacher(req, res, next) {
         res.status(500).json({ message: error.message });
     }
 };
+
   module.exports = {
-    addTeacher,getAllPendingSTeachers
+    addTeacher,acceptTeacher,getAllPendingSTeachers
 };

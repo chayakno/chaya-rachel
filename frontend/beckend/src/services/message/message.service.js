@@ -27,23 +27,9 @@ const leaveroom = async (data) => {
 
 const get100LastMessage = async (room) => {
     try {
-        // const message = await Message.find().limit(100);
         const chatRoom = await Chat.find({ roomName: room })
-        // .populate({
-        //     path: 'messages',
-        //     options: {
-        //         // sort: { createdAt: -1 }, // Sort messages in descending order of createdAt
-        //         limit: 5 // Limit to 100 messages
-        //     }
-        // });
-
         const messages = await Message.find();
-
-        // chatRoomUsers.participants=chatRoomUsers.participants.filter((user) => user!=data.userID)
-
-
-
-        let arr= messages.filter((msg) => chatRoom[0].messages.includes(msg._id)).slice(0, 100)
+        let arr = messages.filter((msg) => chatRoom[0].messages.includes(msg._id)).slice(0, 100)
         let user;
         const brr = await Promise.all(arr.map(async (message) => {
             const user = await User.findOne({ _id: message.sender });
@@ -52,8 +38,6 @@ const get100LastMessage = async (room) => {
                 sender: user ? user.name : 'Unknown User'
             };
         }));
-  
-        console.log(brr);
         return brr;
     } catch (error) {
         console.error('Error fetching recent messages:', error);
@@ -66,7 +50,6 @@ async function addMessage(data) {
     console.log(data);
 
     try {
-
         let chatRoom = await Chat.findOne({ roomName: data.room })
         if (!chatRoom) {
             chatRoom = new Chat({
@@ -78,10 +61,7 @@ async function addMessage(data) {
         }
 
         let user = await User.findOne({ name: data.sender })
-        console.log("user");
-        console.log(user);
-        //כרגע השם היחיד שאפשר להכניס הוא gj
-
+  
         let messageData = {
             //לשנות ל user._id
             sender: "60c72b2f4f1a4c0f1c8a9b7a",
@@ -95,8 +75,8 @@ async function addMessage(data) {
         console.log("saveMessage");
         console.log(saveMessage.sender);
         // saveMessage._doc.sender=user.name,
-        saveMessage._doc.sender=user.name,
-        console.log(saveMessage.sender);
+        saveMessage._doc.sender = user.name,
+            console.log(saveMessage.sender);
         return saveMessage;
     } catch (err) {
         console.error(err)
