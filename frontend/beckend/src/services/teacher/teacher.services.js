@@ -3,6 +3,8 @@ const { Teacher } = require('../../models/teacher.Schema');
 const { User } = require('../../models/user.Schema');
 
 const {Chat}=require('../../models/chatSchema.Schema')
+const sendMail = require('../../email')
+const bcrypt = require("bcryptjs");
 
 
 async function addTeacher(teacherData) {
@@ -30,9 +32,8 @@ async function addTeacher(teacherData) {
 
 async function acceptTeacher(id) {
 
-
     try {
-        const teacher = await Teacher.findOne({ _id: id });
+        const teacher = await Teacher.findOne({ _id: id }).populate('user');
 
         if (!teacher) {
             throw new Error('Teacher not found');
@@ -49,8 +50,11 @@ async function acceptTeacher(id) {
 
         teacher.chats.push(newChat._id); 
         teacher.status = 'accepted';
+        const longUserId = await bcrypt.hash(teacher.user.name, 12);
+        teacher.user.userId = longUserId.slice(longUserId, 15);
+        await teacher.user.save();
+        sendMail(teacher.user.email," קבלה ןהצטרפות לעבודה👻", `${teacher.user.userId}`, `<b>hi ${teacher.user.name} you join successecfully to our school your password is  ${teacher.user.userId}</b>`);
 
-       
         const savedTeacher = await teacher.save();
         return savedTeacher;
     } catch (err) {
@@ -59,12 +63,14 @@ async function acceptTeacher(id) {
 };
 const getAllPendingSTeachers = async () => {
     try {
-        const PendingSTeachers = await Teacher({ status: 'pending' });
+        const PendingSTeachers = await Teacher.find({ status: 'pending' });
         return PendingSTeachers;
     } catch (error) {
         throw error;
     }
 };
+
+
 
 
 module.exports = {

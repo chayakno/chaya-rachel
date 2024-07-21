@@ -1,7 +1,8 @@
 const { Chat } = require('../../models/chatSchema.Schema');
 const Student = require('../../models/student.Schema');
-
+const bcrypt = require("bcryptjs");
 const { User } = require('../../models/user.Schema');
+const sendMail = require('../../email')
 
 const getAllStudents = async () => {
     try {
@@ -42,35 +43,37 @@ async function addStudent(studentData) {
     }
 };
 
+
+
+
+
 async function acceptStudent(id) {
     try {
-        const student = await Student.findOne({ _id: id });
-
+        const student = await Student.findOne({ _id: id }).populate('user');
         if (!student) {
             throw new Error('Student not found');
         }
-
-        // שימוש ב-Promise.all לביצוע פעולות אסינכרוניות במקביל
         const chatPromises = student.subjects.map(async (sub) => {
             let chat = await Chat.findOne({ roomName: sub });
-            
-
             if (chat) {
-                chat.participants.push(student.user); 
-                await chat.save(); 
+                chat.participants.push(student.user);
+                await chat.save();
             } else {
                 throw new Error('chat not found');
             }
-
-            student.chats.push(chat._id); 
+            student.chats.push(chat._id);
         });
 
-        await Promise.all(chatPromises); 
-
+        await Promise.all(chatPromises);
         student.status = 'accepted';
+        await student.save();
 
-        const savedStudent = await student.save();
-        return savedStudent;
+        const longUserId = await bcrypt.hash("chissss", 12);
+        student.user.userId = longUserId.slice(longUserId, 15);
+        await student.user.save();
+        sendMail(student.user.email, "קבלה והצטרפות ללמודים👻", `${student.user.userId}`, `<b>hi ${student.user.name} you join successecfully to our school your password is  ${student.user.userId}</b>`);
+
+        return student;
     } catch (err) {
         throw err;
     }
@@ -79,6 +82,7 @@ async function acceptStudent(id) {
 
 
 
+
 module.exports = {
-    addStudent, getAllStudents, getAllPendingStudents,acceptStudent
+    addStudent, getAllStudents, getAllPendingStudents, acceptStudent
 };
