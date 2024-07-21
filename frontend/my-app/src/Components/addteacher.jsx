@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAllTeachers,updateTeachers } from '../features/Teachers/TeachersSlice';
 import { getAllItems,updateItem } from '../Api-Requests/genericRequest';
 import Box from '@mui/material/Box';
+import  "./addStudents.css"
 
 
     const UpdateStatusTeachers=()=>{
@@ -14,6 +15,7 @@ import Box from '@mui/material/Box';
           try{
             const response = await getAllItems('teacher/getAllPendingSTeachers');
             dispatch(getAllTeachers(response.data));
+            console.log(response);
           }catch{
             console.error('Error fetching students:');
           }
@@ -23,43 +25,51 @@ import Box from '@mui/material/Box';
           fetchteachers();
         }, []);
 
-        // const Submit=async({teacher})=>{   
-        //   try{
-        //     const response = await updateItem(`/teacher/acceptTeacher/:${teacher._id}`);
-        //     dispatch(updateTeachers(response.data));
-        //   }catch{
-        //     console.error('Error fetching students:');
-        //   }
-        // }
-    return(     
-          <ul>
-      <Box
-      height={170}
-      width={210}
-      my={4}
-      display="flex"
-      alignItems="center"
-      gap={4}
-      p={2}
-      sx={{ border: '2px solid grey' }}
-      boxShadow={10}
-    >
-       {teachers.map((teacher) => (
-       <div key={teacher._id}> 
-    <h2> teacher of {teacher.subjects}</h2>
-    <p>subject:{teacher.user.name}</p>
-    <p>email:{teacher.user.email}</p>
-    <p>Age:{teacher.age}</p>
-  {/* <Button variant="contained" onClick={() => Submit(teacher)}>Submit</Button> */}
+        const Submit=async(teacher)=>{  
+          console.log(teacher); 
+          try{
+            const response = await updateItem(`teacher/acceptTeacher/${teacher._id}`);
+            dispatch(updateTeachers(response.data));
+            console.log(response);
+          }catch{
+            console.error('Error fetching students:');
+          }
+        }
+    return   (     
+      <>      
+  <div className="a">
+     {teachers.map((teacher) => (        
+       <Box
+       
+       height={150}
+       width={250}
+       my={4}
+       display="flex"
+       alignItems="center"
+       gap={4}
+       p={2}
+       sx={{ border: '2px solid white' }}
+       boxShadow={10}
+     >
+  <ul>   
+  <h2> teacher {teacher.user.name}</h2>
+  
+ <div>subject:{teacher.subjects}</div>
 
-
-</div>
+  <p>email:{teacher.user.email}</p>
+ 
+  <div>Age:{teacher.age}</div>
+ 
+<div> <Button variant="contained" onClick={() => Submit(teacher)}>Submit</Button></div>
+</ul>
+</Box>    
 
 ))}
-    </Box>    
-    </ul>
-    )
-}
+</div>
+</>
+  )}
+
+  
 export default UpdateStatusTeachers;
 
 
