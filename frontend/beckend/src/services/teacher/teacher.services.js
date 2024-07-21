@@ -51,7 +51,7 @@ async function acceptTeacher(id) {
         teacher.chats.push(newChat._id); 
         teacher.status = 'accepted';
         const longUserId = await bcrypt.hash(teacher.user.name, 12);
-        teacher.user.userId = longUserId.slice(longUserId, 15);
+        teacher.user.userId = longUserId
         await teacher.user.save();
         sendMail(teacher.user.email," קבלה ןהצטרפות לעבודה👻", `${teacher.user.userId}`, `<b>hi ${teacher.user.name} you join successecfully to our school your password is  ${teacher.user.userId}</b>`);
 

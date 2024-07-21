@@ -3,11 +3,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
 const http = require("http");
 const { Server } = require("socket.io");
 const CHAT_BOT = 'ChatBot';
 let chatRoom = ''; // E.g. javascript, node,...
 let allUsers = []; // All users in current chat room
+const cookieParser = require("cookie-parser");
 const messageservice = require('./src/services/message/message.service');
 
 // const messageservice=require('./')
@@ -24,6 +26,8 @@ const io = new Server(server, {
 
 // Middleware
 app.use(express.json());
+app.use(cookieParser());
+
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -108,7 +112,7 @@ const teacherRouter=require("./src/routes/teacher.route")
 app.use("/students", studRouter);
 app.use("/message", messageRouter)
 app.use("/teacher",teacherRouter)
-// app.use("/users", userRouter); // Uncomment if you have user routes defined
+ app.use("/users", userRouter); // Uncomment if you have user routes defined
 
 
 

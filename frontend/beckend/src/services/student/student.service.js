@@ -69,7 +69,7 @@ async function acceptStudent(id) {
         await student.save();
 
         const longUserId = await bcrypt.hash("chissss", 12);
-        student.user.userId = longUserId.slice(longUserId, 15);
+        student.user.userId = longUserId
         await student.user.save();
         sendMail(student.user.email, "קבלה והצטרפות ללמודים👻", `${student.user.userId}`, `<b>hi ${student.user.name} you join successecfully to our school your password is  ${student.user.userId}</b>`);
 

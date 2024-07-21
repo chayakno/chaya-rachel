@@ -1,5 +1,7 @@
 
 const { User, validUserSchema } = require('../../models/user.Schema');
+const { createSecretToken } = require("../../util/secretToken");
+const bcrypt = require("bcryptjs");
 
 async function updateUserStatus(userId, exists) {
     try {
@@ -15,41 +17,56 @@ async function updateUserStatus(userId, exists) {
     }
 }
 
-async function addUser(studentData) {
-
-
+async function addUser(studentData, res) {
     try {
+       
         let user = await User.findOne({ email: studentData.email });
-        console.log("user.findone");
-        console.log(user);
         if (user) {
-            throw new Error("email is exist already");
-        }
-        user=await User.findOne({userId:studentData.userId})
-        if(user){
-            throw new Error("user is exist already");
+            throw new Error("Email already exists");
         }
 
-        let newUser = {
-            //userId=passsword
-            "userId": studentData.userId,
-            "name": studentData.name,
-            "email": studentData.email,
-            "phone": studentData.phone
+        
+        user = await User.findOne({ userId: studentData.userId });
+        if (user) {
+            throw new Error("User ID already exists");
         }
 
+        
+        const newUser = {
+            userId: studentData.userId,
+            name: studentData.name,
+            email: studentData.email,
+            phone: studentData.phone
+        };
+
+        
         const { error } = validUserSchema.validate(newUser);
         if (error) {
-            console.log("errrrrrrrrrrrrrrrrrrorrr!!!");
             throw new Error(error.details[0].message);
         }
 
+      
         const newStudent = new User(newUser);
         const savedStudent = await newStudent.save();
+
+      
+        const token = createSecretToken(newStudent._id);
+        
+       
+        res.cookie("token", token, {
+            withCredentials: true,
+            httpOnly: false,
+        });
+        res
+            .status(201)
+            .json({ message: "User signed in successfully", success: true, user });
+
+
+
         return savedStudent;
-    }
-    catch (err) {
-        throw err;
+
+    } catch (err) {
+        throw new Error(err.message);
     }
 }
 

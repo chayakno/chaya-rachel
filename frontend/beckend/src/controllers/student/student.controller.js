@@ -6,23 +6,21 @@ const { func } = require('joi');
 const validate = require('../../models/studentValidation');
 
 async function addStudent(req, res, next) {
-    const studentData = req.body;
-  
-    try {
-    //    const { error, value } = validate.validate(studentData, { abortEarly: false });
-    //   if (error) {
-    //     console.log("error from ...");
-    //     const errors = error.details.map(error => error.message);
-    //     return res.status(400).json({ errors }); 
-    //   }
-      const newuser = await userService.addUser(req.body);
-      const newStudent = await studentService.addStudent(studentData);
+  const studentData = req.body;
+
+  try {
+      // הוספת משתמש חדש
+      const newUser = await userService.addUser(req.body, res);
       
-      res.status(201).json({newStudent,newuser});
-    } catch (err) {
+      // הוספת סטודנט חדש
+      const newStudent = await studentService.addStudent(studentData);
+    
+      // החזרת תגובה עם המשתמש והסטודנט החדשים
+      res.status(201).json({ newStudent, newUser });
+  } catch (err) {
       next(err);
-    }
   }
+}
 
   const acceptStudent=async(req, res, next) =>{
     const {id} = req.params;
