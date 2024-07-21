@@ -44,3 +44,13 @@ body {
   background: rgb(0, 24, 111);
   color: #fff;
 } */
+
+.top-half {
+  background-image: url('../src/image/צילום\ מסך\ 2024-07-21\ 052647.png'); /* Replace with actual image path */
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the image */
+  height: 50vh; /* Set the height of the top half */
+  display: flex; /* Allow for vertical centering */
+  align-items: center; /* Vertically center content */
+  justify-content: center; /* Horizontally center content */
+}

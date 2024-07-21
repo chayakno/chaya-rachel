@@ -11,6 +11,8 @@ const httpService = {
         return axios.post(url, data);
     },
     put: async (url, data) => {
+        console.log("url"+url+"data"+data);
+
         return axios.put(url, data);
     },
     delete: async (url) => {

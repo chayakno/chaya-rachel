@@ -63,7 +63,7 @@ async function acceptTeacher(id) {
 };
 const getAllPendingSTeachers = async () => {
     try {
-        const PendingSTeachers = await Teacher.find({ status: 'pending' });
+        const PendingSTeachers = await Teacher.find({ status: 'pending' }).populate('user');
         return PendingSTeachers;
     } catch (error) {
         throw error;

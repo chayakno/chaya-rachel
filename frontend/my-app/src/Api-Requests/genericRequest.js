@@ -8,6 +8,7 @@ export const getAllItems = (route) => {
     return httpService.get(`http://localhost:5000/${route}`);
 };
 
+
 export const deleteItem = (route, id) => {
     return httpService.delete(`http://localhost:5000/${route}/${id}`);
 };

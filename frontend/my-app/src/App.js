@@ -5,10 +5,10 @@ import Chat from './pages/chat';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import io from 'socket.io-client';
 import { useSelector, useDispatch } from 'react-redux';
-import StudentsComponent from './TestComponent'
+// import StudentsComponent from './TestComponent'
 import store from '../src/app/store'
 import { Provider } from 'react-redux';
-
+import TabContext from './Components/nevigateAdmin'
 
 const socket = io.connect('http://localhost:5000');
 
@@ -21,34 +21,34 @@ function App() {
 
 
   return (
-    <Provider store={store}>
-   <p>hi rachel</p>
-   <StudentsComponent/>
- 
-    <Router>
-      <div className='App'>
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <Home
-              sender={sender}
-                setUsername={setUsername}
-                room={room}
-                setRoom={setRoom}
-                socket={socket}
-              />
-            }
-          />
-          {/* Add this */}
-          <Route
-            path='/chat'
-            element={<Chat sender={sender} room={room} socket={socket} />}
-          />
-        </Routes>
-      </div>
-    </Router>
-    </Provider>
+  
+    <Provider store={store} > 
+   
+   <TabContext/>
+  </Provider>
+    // <Router>
+    //   <div className='App'>
+    //     <Routes>
+    //       <Route
+    //         path='/'
+    //         element={
+    //           <Home
+    //           sender={sender}
+    //             setUsername={setUsername}
+    //             room={room}
+    //             setRoom={setRoom}
+    //             socket={socket}
+    //           />
+    //         }
+    //       />
+    //       {/* Add this */}
+    //       <Route
+    //         path='/chat'
+    //         element={<Chat sender={sender} room={room} socket={socket} />}
+    //       />
+    //     </Routes>
+    //   </div>
+    // </Router>
   );
 }
 
