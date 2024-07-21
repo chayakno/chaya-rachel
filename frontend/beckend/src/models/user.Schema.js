@@ -9,14 +9,13 @@ const UsersSchema = new mongoose.Schema({
     password:String,
     exists: {
         type: Boolean,
-        default: true
+        default: false
     },
 
 
 });
 
 const User = mongoose.model('User', UsersSchema);
-
 
 
 const validUserSchema = Joi.object({
@@ -32,7 +31,6 @@ const validUserSchema = Joi.object({
     .message('Password must be between 8 and 30 characters, and contain only letters and numbers')
 
 });
-
 
 
 

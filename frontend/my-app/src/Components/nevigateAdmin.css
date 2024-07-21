@@ -1,0 +1,12 @@
+.top-half {
+    background-image: url('../תמונה/good.png'); /* Replace with actual image path */
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    height: 30vh; /* Set the height of the top half */
+    display: flex; /* Allow for vertical centering */
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    position: absolute;
+
+  }
+  

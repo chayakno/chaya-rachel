@@ -30,7 +30,6 @@ const Home = ({ sender, setUsername, room, setRoom, socket }) => {
           <option value='react'>React</option>
           
         </select>
-
         <button onClick={joinRoom} className='btn btn-secondary'>Join Room</button>
       </div>
     </div>

@@ -5,6 +5,6 @@ const {addStudent,getAllStudents,getAllPendingStudents,acceptStudent} = require(
 router.post('/add', addStudent);
 router.get('/getAllStudents', getAllStudents);
 router.get('/getAllPendingStudents', getAllPendingStudents);
-router.put('/acceptStudent/:id',acceptStudent)
+router.put('/acceptStudent/:id/undefined',acceptStudent)
 
 module.exports = router;

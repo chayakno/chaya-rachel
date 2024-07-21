@@ -8,7 +8,6 @@ export const deleteItem = (state, action) => {
       data: state.data.filter((item) => item.id !== action.payload),
     };
   };
-  
 
   export const addItem = (state, action) => {  
     return {
