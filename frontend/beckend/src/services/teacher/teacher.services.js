@@ -40,7 +40,7 @@ async function acceptTeacher(id) {
         const user=await User.findOne({_id:teacher.user})
 
         const chatRoom = new Chat({
-            roomName: `${teacher.subjects[0]} ${user.name}music`,
+            roomName: teacher.subjects[0],
             participants: [],
             messages: []
         });

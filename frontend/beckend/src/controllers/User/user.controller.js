@@ -20,5 +20,5 @@ async function updateUserStatus(req, res) {
 }
 
 module.exports = {
-    updateUserStatuss,
+    updateUserStatus,
 };

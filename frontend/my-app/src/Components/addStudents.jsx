@@ -1,8 +1,7 @@
 import Button from '@mui/material/Button';
 import React, { useEffect,useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllStudent } from '../features/Student/StudentSlice';
-import {updateUsers } from "../features/User/UsersSlice"
+import { getAllStudent,updateStudent } from '../features/Student/StudentSlice';
 import { getAllItems,updateItem } from '../Api-Requests/genericRequest';
 import Box from '@mui/material/Box';
 
@@ -10,8 +9,7 @@ import Box from '@mui/material/Box';
     const UpdateStatusStudent=()=>{
     const dispatch = useDispatch();
     const students = useSelector((state) => state.Student.data);
-    console.log(students);
-
+console.log(students);
         const fetchStudents = async () => {
           try{
             const response = await getAllItems('students/getAllPendingStudents');
@@ -19,7 +17,6 @@ import Box from '@mui/material/Box';
   
           }catch{
             console.error('Error fetching students:');
-
           }
         }
 
@@ -29,41 +26,46 @@ import Box from '@mui/material/Box';
       
 
         const Submit=async({student})=>{   
-          alert("לסדר את הפונקציה בבבקנד של שינויי סטטוס")
-          // try{
-          //   setExistStatus(true);
-          //   const response = await updateItem('users//users/:student._id/true');
-          //   dispatch(updateUsers(response.data));
-          // }catch{
-          //   console.error('Error fetching students:');
-          // }
+          try{
+
+            const response = await updateItem(`/students/acceptStudent/:${student._id}`);
+            dispatch(updateStudent(response.data));
+            alert(student.exists)
+          }catch{
+            console.error('Error fetching students:');
+            alert("error")
+          }
         }
     return(     
-          <ul>
-<Box
-      height={150}
-      width={100}
-      my={4}
-      display="flex"
-      alignItems="center"
-      gap={4}
-      p={2}
-      sx={{ border: '2px solid grey' }}
-    >
-       {students.map((student) => (
-
-         <div key={student._id}> 
- 
-  <p>Age: {student.user.name}</p>
-  <p>subject:{student.subjects}</p>
-  <Button variant="contained" onClick={() => Submit(student)}>Submit</Button>
-
-
-</div>
+        <>      
+    
+       {students.map((student) => (        
+         <Box
+         height={150}
+         width={250}
+         my={4}
+         display="flex"
+         alignItems="center"
+         gap={4}
+         p={2}
+         sx={{ border: '2px solid green' }}
+         boxShadow={10}
+       >
+    <ul>   
+    <h2> student {student.user.name}</h2>
+    
+   <div>subject:{student.subjects}</div>
+  
+    <p>email:{student.user.email}</p>
+   
+    <div>Age:{student.age}</div>
+   
+ <div> <Button variant="contained" onClick={() => Submit(student)}>Submit</Button></div>
+ </ul>
+  </Box>    
 
 ))}
-    </Box>    
-    </ul>
+  </>
     )
 }
 export default UpdateStatusStudent;

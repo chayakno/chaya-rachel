@@ -32,7 +32,8 @@ const RoomAndUsers = ({ socket, sender, room }) => {
 
   return (
     <div className={styles.roomAndUsersColumn}>
-      <h2 className={styles.roomTitle}>{room}</h2>
+      
+      <h2 className={styles.roomTitle} >{room}</h2>
 
       <div>
         {roomUsers.length > 0 && <h5 className={styles.usersTitle}>Users:</h5>}
