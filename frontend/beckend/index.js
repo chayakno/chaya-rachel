@@ -3,18 +3,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
 const http = require("http");
 const { Server } = require("socket.io");
 const CHAT_BOT = 'ChatBot';
-let chatRoom = ''; // E.g. javascript, node,...
-let allUsers = []; // All users in current chat room
+
+let chatRoom = ''; 
+let allUsers = []; 
 const cookieParser = require("cookie-parser");
 const messageservice = require('./src/services/message/message.service');
-
-// const messageservice=require('./')
-
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -24,14 +20,35 @@ const io = new Server(server, {
     },
 });
 
-// Middleware
-app.use(express.json());
-app.use(cookieParser());
-
-app.use(bodyParser.json());
 app.use(cors());
+app.use(cookieParser());
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// MongoDB Connection
+
+app.use((req, res, next) => {
+    console.log(`Received ${req.method} request for ${req.url}`);
+    console.log('Request body:', req.body);
+    next();
+});
+app.use((req, res, next) => {
+    if (req.method === 'POST' && req.is('application/json') && !req.body) {
+        console.error('Empty JSON body');
+        return res.status(400).json({ message: 'Empty JSON body' });
+    }
+    next();
+});
+
+
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        console.error('Bad JSON:', err);
+        return res.status(400).send({ message: 'Invalid JSON' });
+    }
+    next();
+});
+
+
 const PORT = process.env.PORT || 5000;
 mongoose.connect('mongodb://127.0.0.1:27017/School-management', {})
     .then(() => {
@@ -40,7 +57,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/School-management', {})
     })
     .catch((error) => console.error('MongoDB connection error:', error.message));
 
-// Socket.IO connection
+
 io.on('connection', (socket) => {
     console.log(`User connected ${socket.id}`);
     socket.on('leave_room', (data) => {
@@ -48,7 +65,7 @@ io.on('connection', (socket) => {
         let timestamp = Date.now();
         const { sender, room, __createdtime__ } = data;
 
-        // Use room to leave the socket room
+     
         socket.leave(room);
         socket.to(room).emit('receive_message', {
             content: `${data.sender} has left the chat room`,
@@ -61,10 +78,10 @@ io.on('connection', (socket) => {
     });
     socket.on('join_room', async (data) => {
 
-        const { sender, room } = data; // Data sent from client when join_room event emitted
-        socket.join(room); // Join the user to a socket room
-        let timestamp = Date.now(); // Current timestamp
-        // Send message to all users currently in the room, apart from the user that just joined
+        const { sender, room } = data; 
+        socket.join(room); 
+        let timestamp = Date.now(); 
+       
         socket.to(room).emit('receive_message', {
             content: `${sender} has joined the chat room`,
             sender: CHAT_BOT,
@@ -87,7 +104,7 @@ io.on('connection', (socket) => {
 
                 const last100Messages = await messageservice.get100LastMessage(room)
                 socket.emit('last_100_messages', last100Messages);
-                //להראות לחיהלה ששניתי פה
+                
                 const newMessage = await messageservice.addMessage(data);
                 io.in(room).emit('receive_message', newMessage);
             } catch (error) {
@@ -103,7 +120,7 @@ io.on('connection', (socket) => {
 
 });
 
-// Routes
+
 const studRouter = require("./src/routes/student.rout");
 const userRouter = require("./src/routes/user.rout");
 const messageRouter = require("./src/routes/message.rout");

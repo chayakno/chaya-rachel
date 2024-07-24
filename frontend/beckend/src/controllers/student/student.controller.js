@@ -9,13 +9,13 @@ async function addStudent(req, res, next) {
   const studentData = req.body;
 
   try {
-      // הוספת משתמש חדש
+    
       const newUser = await userService.addUser(req.body, res);
       
-      // הוספת סטודנט חדש
+     
       const newStudent = await studentService.addStudent(studentData);
     
-      // החזרת תגובה עם המשתמש והסטודנט החדשים
+     
       res.status(201).json({ newStudent, newUser });
   } catch (err) {
       next(err);
