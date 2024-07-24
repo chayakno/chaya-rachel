@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import './nevigateAdmin'
+import './nevigateAdmin'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -18,16 +18,20 @@ const MyComponent = () => {
 
   return (
     <>
+   
     <div className="top-half">
        </div>
-     
-    <Router >
-      <TabContext value={value}>
+    
+    <Router>
+      <TabContext  value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label=" הוספת סטודנט" value="1" component={Link} to="/students" />
-            <Tab label="הוספת עובד" value="2" component={Link} to="/add-worker" />
-            <Tab label="Item Three" value="3" component={Link} to="/item-three" />
+        {/* <h2 className="center">עדכון וקבלה</h2> */}
+          <TabList  onChange={handleChange} aria-label="lab API tabs example">
+              
+            <Tab   label="  סטודנטים " value="1" component={Link} to="/students" />
+            <Tab  label="  מורים" value="2" component={Link} to="/add-worker" />
+           
+            {/* <Tab label="שליחת מייל" value="3" component={Link} to="/item-three" /> */}
           </TabList>
         </Box>
         <Routes>
@@ -37,6 +41,7 @@ const MyComponent = () => {
         </Routes>
       </TabContext>
     </Router>
+   
     </>
   );
 };

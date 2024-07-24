@@ -53,4 +53,7 @@ body {
   display: flex; /* Allow for vertical centering */
   align-items: center; /* Vertically center content */
   justify-content: center; /* Horizontally center content */
+  margin-top: 0px;
+  padding: 0%;
+  
 }
